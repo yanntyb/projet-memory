@@ -1,0 +1,35 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#grille {
+    width: 40vw;
+    height: 40vw;
+}
+
+.ligne {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.slot {
+    height: 100%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}

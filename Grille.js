@@ -4,6 +4,7 @@ let Grille = function (largeur){
     this.count = 0;
     this.choose = [];
     this.same = [];
+    this.tabImg = [];
 }
 
 Grille.prototype.afficher = function (){
@@ -15,23 +16,25 @@ Grille.prototype.afficher = function (){
         ligne.className = "ligne";
         ligne.style.height = 100/this.largeur + "%"
         for(let j=0;j<this.largeur;j++){
-            let slot = document.createElement("div");
+            let div = document.createElement("div");
+            div.className = "slotDiv";
+            div.style.width = 100/ this.largeur + "%"
+            let slot = document.createElement("img");
             slot.className = "slot";
-            slot.style.width = 100/this.largeur + "%"
-            slot.style.color = "white";
-            this.slot.push(slot)
-            ligne.append(slot);
+            div.append(slot)
+            this.slot.push(div)
+            ligne.append(div);
         }
         this.grille.append(ligne);
     }
-    document.body.append(this.grille)
+    document.getElementById("global").append(this.grille)
 }
 
 Grille.prototype.event = function (){
     let _this =  this
     this.slot.forEach(elem => {
         elem.addEventListener("click",function (){
-            if(this.style.color === "white"){
+            if(this.children[0].style.display === "none"){
                 _this.count++;
                 _this.retourner(this);
             }
@@ -55,7 +58,7 @@ Grille.prototype.selectIcone = function (){
         }
     }
     for(let i=0;i<this.slotWithInner.length;i++){
-        this.slot[i].innerHTML = this.slotWithInner[i];
+        this.slot[i].alt = this.slotWithInner[i];
     }
 }
 
@@ -81,7 +84,7 @@ Grille.prototype.reset = function (){
                 continue;
             }
             else{
-                i.style.color = "white";
+                i.children[0].style.display = "none";
             }
         }
         this.count = 0;
@@ -90,7 +93,7 @@ Grille.prototype.reset = function (){
 }
 
 Grille.prototype.retourner = function(elem){
-    elem.style.color = "black";
+    elem.children[0].style.display = "block";
     this.choose.push(elem);
     if(this.count === 2){
         this.checkSame();
@@ -99,12 +102,47 @@ Grille.prototype.retourner = function(elem){
 }
 
 Grille.prototype.checkSame = function (){
-    if(this.choose[0].innerHTML === this.choose[1].innerHTML){
+    if(this.choose[0].alt === this.choose[1].altL){
         this.same.push(this.choose[0]);
         this.same.push(this.choose[1]);
-        console.log("same")
     }
 }
 
+Grille.prototype.initTabImg = function(){
+    let _this = this;
+    for(let i = 0; i< (this.largeur**2); i++){
+        let req = new XMLHttpRequest();
+        req.open("get",`https://loremflickr.com/320/240/bird?random=1`, true);
+        req.responseType = 'blob';
+        req.send();
+        req.onload = function(){
+            if(req.status === 200){
+                let reponse = URL.createObjectURL(req.response);
+                if(_this.tabImg.includes(reponse)){
+                    i--
+                }else{
+                    _this.tabImg.push(reponse)
+                }
+            }
+            if(_this.tabImg.length === _this.largeur**2){
+                _this.displayImg()
+            }
+        }
+    }
+    this.tabImg = _this.tabImg;
+}
+
+Grille.prototype.displayImg = function(){
+    let _this = this;
+    setTimeout(function(){
+        console.log(_this.tabImg.length);
+        for(let i = 0;i < _this.slot.length; i++){
+
+            console.log("i" + i + " alt :" + _this.tabImg[_this.slot[i].alt]);
+            _this.slot[i].src = _this.tabImg[_this.slot[i].alt];
+            _this.slot[i].style.display = "none"
+        }
+    },2000)
+}
 
 export {Grille};

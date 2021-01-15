@@ -24,11 +24,15 @@ body{
     flex-direction: row;
 }
 
-.slot {
+.slot , .slotDiv{
     height: 100%;
     border: 1px solid black;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.slot{
+    width: 100%;
 }

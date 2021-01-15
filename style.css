@@ -36,3 +36,23 @@ body{
 .slot{
     width: 100%;
 }
+
+#win{
+    position: absolute;
+    background-color: white;
+    width:10vh;
+    height:10vh;
+    display:none;
+}
+#load{
+    position: absolute;
+    background-color: white;
+    width: 40vw;
+    height: 40vw;
+    display:none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+

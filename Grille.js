@@ -1,5 +1,4 @@
-let Grille = function (largeur) {
-    this.largeur = largeur;
+let Grille = function () {
     this.number = [];
     this.count = 0;
     this.choose = [];
@@ -10,15 +9,17 @@ let Grille = function (largeur) {
 Grille.prototype.theme = function (){
     let _this = this;
     Grille = document.getElementById("valid").addEventListener("click",function(){
-        console.log("ok")
-        _this.theme = document.getElementById("theme").value;
-        _this.afficher();
-        _this.event();
-        _this.selectIcone();
-        _this.initTabImg();
-        document.body.removeChild(document.getElementById("action"));
-        document.getElementById("load").style.display = "flex";
-        return _this;
+        if(document.getElementById("largeur").value !== ""){
+            _this.largeur = document.getElementById("largeur").value * 2;
+            _this.theme = document.getElementById("theme").value;
+            _this.afficher();
+            _this.event();
+            _this.selectIcone();
+            _this.initTabImg();
+            document.body.removeChild(document.getElementById("action"));
+            document.getElementById("load").style.display = "flex";
+            return _this;
+        }
     })
 }
 

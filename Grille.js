@@ -102,7 +102,7 @@ Grille.prototype.retourner = function(elem){
 }
 
 Grille.prototype.checkSame = function (){
-    if(this.choose[0].alt === this.choose[1].altL){
+    if(this.choose[0].children[0].alt === this.choose[1].children[0].alt){
         this.same.push(this.choose[0]);
         this.same.push(this.choose[1]);
     }
@@ -139,8 +139,8 @@ Grille.prototype.displayImg = function(){
         for(let i = 0;i < _this.slot.length; i++){
 
             console.log("i" + i + " alt :" + _this.tabImg[_this.slot[i].alt]);
-            _this.slot[i].src = _this.tabImg[_this.slot[i].alt];
-            _this.slot[i].style.display = "none"
+            _this.slot[i].children[0].src = _this.tabImg[_this.slot[i].alt];
+            _this.slot[i].children[0].style.display = "none"
         }
     },2000)
 }

@@ -1,8 +1,9 @@
-let count = 0;
-
 let Grille = function (largeur){
     this.largeur = largeur;
     this.number = [];
+    this.count = 0;
+    this.choose = [];
+    this.same = [];
 }
 
 Grille.prototype.afficher = function (){
@@ -17,6 +18,7 @@ Grille.prototype.afficher = function (){
             let slot = document.createElement("div");
             slot.className = "slot";
             slot.style.width = 100/this.largeur + "%"
+            slot.style.color = "white";
             this.slot.push(slot)
             ligne.append(slot);
         }
@@ -26,9 +28,13 @@ Grille.prototype.afficher = function (){
 }
 
 Grille.prototype.event = function (){
+    let _this =  this
     this.slot.forEach(elem => {
         elem.addEventListener("click",function (){
-            retourner(elem)
+            if(this.style.color === "white"){
+                _this.count++;
+                _this.retourner(this);
+            }
         })
     })
 }
@@ -54,24 +60,51 @@ Grille.prototype.selectIcone = function (){
 }
 
 function countIterationInArray(item, array){
-    let count = 0;
+    let countIndex = 0;
     for(let i = 0; i < array.length; i++){
         if(array[i] === item){
-            count++;
+            countIndex++;
         }
     }
-    return count;
+    return countIndex;
 }
 
 Grille.prototype.chooseRandomNumber = function (max){
     return Math.trunc(Math.random() * max);
 }
 
-Grille.prototype.reset
-
-function retourner(elem){
-    elem.style.color = "black";
-    count++;
+Grille.prototype.reset = function (){
+    if(this.count === 3){
+        this.choose = [];
+        for(let i of this.slot){
+            if(this.same.includes(i)){
+                continue;
+            }
+            else{
+                i.style.color = "white";
+            }
+        }
+        this.count = 0;
+    }
+    console.log(this.choose)
 }
+
+Grille.prototype.retourner = function(elem){
+    elem.style.color = "black";
+    this.choose.push(elem);
+    if(this.count === 2){
+        this.checkSame();
+    }
+    this.reset();
+}
+
+Grille.prototype.checkSame = function (){
+    if(this.choose[0].innerHTML === this.choose[1].innerHTML){
+        this.same.push(this.choose[0]);
+        this.same.push(this.choose[1]);
+        console.log("same")
+    }
+}
+
 
 export {Grille};

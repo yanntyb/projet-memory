@@ -11,11 +11,14 @@ body{
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    background-color: #E6B0AA;
 }
 
 #grille {
     width: 40vw;
     height: 40vw;
+    box-shadow: 0 0 30px 2px #000000;
 }
 
 .ligne {
@@ -26,11 +29,16 @@ body{
 
 .slot , .slotDiv{
     height: 100%;
-    border: 1px solid black;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.slotDiv{
+    border: 1px solid black;
+    background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,0.7710434515603116) 23%, rgba(0,212,255,1) 100%);
 }
 
 .slot{
@@ -57,4 +65,52 @@ body{
     align-items: center;
 }
 
+#timer{
+    position: absolute;
+    right: 0;
+    font-size: 3rem;
+    color: crimson;
+}
 
+#action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 40vw;
+    height: 20vh;
+    box-shadow: 0 0 30px 2px #000000;
+    background-color: #CD6155;
+}
+
+input, option{
+    background-color: #A93226;
+    color: white;
+}
+
+::placeholder{
+    color: white;
+    padding: 2%;
+}
+
+@media screen and (max-width: 500px){
+    #global, #grille {
+        width: 100vw;
+        height: 100vh;
+    }
+    #timer {
+        display: none;
+    }
+    #action{
+        height: 100vh;
+        width: 100vw;
+    }
+    #load {
+        width: 100vw;
+        height: 100vh;
+        background-color: #7B241C;
+        color: white;
+    }
+
+}

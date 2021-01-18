@@ -4,9 +4,11 @@ let Grille = function () {
     this.choose = [];
     this.same = [];
     this.tabImg = [];
+    this.time = 0;
+    this.run = false;
 }
 
-Grille.prototype.theme = function (){
+Grille.prototype.start = function (){
     let _this = this;
     Grille = document.getElementById("valid").addEventListener("click",function(){
         if(document.getElementById("largeur").value !== ""){
@@ -144,8 +146,9 @@ Grille.prototype.initTabImg = function () {
             }
             if (_this.tabImg.length === _this.largeur ** 2) {
                 _this.displayImg();
-                console.log("ready")
                 document.getElementById("load").style.display = "none";
+                _this.run = true;
+                _this.timer();
             }
         }
     }
@@ -172,6 +175,7 @@ Grille.prototype.checkWin = function () {
         }
     }
     if (win) {
+        this.run = false;
         this.afficherWin()
     }
 }
@@ -180,6 +184,9 @@ Grille.prototype.afficherWin = function () {
     let divWin = document.createElement("div");
     divWin.id = "win";
     divWin.innerHTML = "Vous avez Gagné !";
+    divWin.addEventListener("click", function() {
+        document.location.reload();
+    })
     document.body.append(divWin);
 }
 
@@ -187,6 +194,21 @@ Grille.prototype.debug = function () {
     this.slot.forEach(elem => {
         elem.children[0].style.display = "block";
     })
+}
+
+Grille.prototype.timer = function(){
+    let _this = this;
+    setTimeout(function(){
+        if(_this.run){
+            _this.time ++;
+            _this.afficherTimer();
+        }
+        _this.timer();
+    },1000)
+}
+
+Grille.prototype.afficherTimer = function(){
+    document.getElementById("timer").innerHTML = this.time + " seconde";
 }
 
 export {Grille};
